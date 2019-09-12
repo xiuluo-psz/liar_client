@@ -1,6 +1,3 @@
-import 'package:liar/config/config.dart';
-import 'package:liar/model/user.dart';
-import 'package:liar/util/http_util.dart';
 import 'package:flutter/material.dart';
 
 class LoginRoute extends StatefulWidget {
@@ -62,21 +59,8 @@ class _LoginRouteState extends State<LoginRoute> {
                         color: Theme.of(context).primaryColor,
                         textColor: Colors.white,
                         onPressed: () {
-                          if ((_formKey.currentState as FormState).validate()) {
-                            var name = _nameController.text;
-                            var pwd = _pwdController.text;
-                            User userInfo = User(userName: name, password: pwd);
-                            var jsonData = userInfo.toJson();
-//                            HttpUtil().post(Config.BASE_URL, jsonData).then((response) {
-//                              User a = User.fromJson(response);
-//                              print("=============");
-//                              print("=============");
-//                            }).catchError((e){
-//                              print('+++++++++++++++++++++++++');
-//                              print(e);
-//                              print('+++++++++++++++++++++++++');
-//                            });
-                          }
+                          if ((_formKey.currentState as FormState)
+                              .validate()) {}
                         },
                       ),
                     ),

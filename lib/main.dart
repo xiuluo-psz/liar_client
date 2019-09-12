@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:liar/config/global_state.dart';
 import 'package:liar/generated/i18n.dart';
-import 'package:liar/model/login.dart';
+import 'package:liar/model/login_model.dart';
 import 'package:liar/model/user.dart';
 import 'package:liar/model/usual.dart';
 import 'package:liar/service/login_service.dart';

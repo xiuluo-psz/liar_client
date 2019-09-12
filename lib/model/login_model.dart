@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'login.g.dart';
+part 'login_model.g.dart';
 
 @JsonSerializable()
-class Login{
+class Login {
   String userId;
   String userName;
   String phoneNumber;
@@ -14,11 +14,19 @@ class Login{
   int allowDay;
   String token;
 
-  Login({this.userId, this.userName, this.phoneNumber, this.email, this.password,
-      this.image, this.version, this.allowDay, this.token});
+  Login({
+    this.userId,
+    this.userName,
+    this.phoneNumber,
+    this.email,
+    this.password,
+    this.image,
+    this.version,
+    this.allowDay,
+    this.token,
+  });
 
-  factory Login.fromJson(Map<String, dynamic> json) =>
-      _$LoginFromJson(json);
+  factory Login.fromJson(Map<String, dynamic> json) => _$LoginFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoginToJson(this);
 
