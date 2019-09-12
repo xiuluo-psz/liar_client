@@ -1,13 +1,14 @@
 import 'dart:async';
 
-import 'package:liar/config/global_state.dart';
-import 'package:liar/model/user.dart';
-import 'package:liar/model/usual.dart';
-import 'package:liar/generated/i18n.dart';
-import 'package:liar/util/http_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:liar/config/global_state.dart';
+import 'package:liar/generated/i18n.dart';
+import 'package:liar/model/login.dart';
+import 'package:liar/model/user.dart';
+import 'package:liar/model/usual.dart';
+import 'package:liar/service/login_service.dart';
 import 'package:redux/redux.dart';
 
 void main() {
@@ -35,7 +36,6 @@ class MyApp extends StatelessWidget {
       child: StoreBuilder<GlobalState>(
         builder: (BuildContext context, Store<GlobalState> store) {
           return MaterialApp(
-            title: "common dev",
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
@@ -73,19 +73,17 @@ class _MyHomePageState extends State<MyHomePage> {
     _counter++;
   }
 
-  void _func() async {
-    await HttpUtil.getInstance().get("test", {"a": 1}).then((response) {
-      print("main" + response.data["name"]);
-    }).catchError((e) {
-      print("EOORO EOOROR");
-    });
-    print("======================================");
-  }
-
   @override
   void initState() {
     _counter = 0;
-    _func();
+    LoginService()
+        .login("admin@admin.com", "13344445555", "123456")
+        .then((result) {
+      if (result.code == "200") {
+        Login login = Login.fromJson(result.data);
+        print(login.token);
+      }
+    });
     super.initState();
   }
 

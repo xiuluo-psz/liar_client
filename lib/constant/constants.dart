@@ -1,4 +1,9 @@
 class Constants {
-  static const String URL_PREFIX = "/api";
-  static const String API_LOG_IN = URL_PREFIX + "/Login/login";
+
+  static const String API_LOGIN_LOGIN =  "Login/login";
+  static const String API_LOGIN_LOGDEL =  "Login/logdel";
+
+  static const String API_USER_REGISTRY =  "User/registry";
+
+  static const String API_TOKEN_REFRESH =  "Token/refresh";
 }

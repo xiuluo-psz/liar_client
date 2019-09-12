@@ -1,18 +1,22 @@
 import 'package:liar/constant/constants.dart';
+import 'package:liar/model/net_result.dart';
 import 'package:liar/util/http_util.dart';
 
 class LoginService {
-  Future<String> login(String userName, String password) async {
-    String data;
+  Future<NetResult> login(String email, String phone, String password) async {
+    NetResult result;
     var params = {
-      "userName": userName,
+      "email": email,
+      "phoneNumber": phone,
       "password": password,
     };
     await HttpUtil.getInstance()
-        .post(Constants.API_LOG_IN, params)
+        .post(Constants.API_LOGIN_LOGIN, params)
         .then((response) {
-      data = response.data["data"];
-    }).catchError((onError) {});
-    return data;
+      result = NetResult.fromJson(response.data);
+    }).catchError((onError) {
+      print(onError.toString());
+    });
+    return result;
   }
 }
