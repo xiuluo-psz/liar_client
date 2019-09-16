@@ -1,5 +1,6 @@
 {
   "app_title": "Liar",
+  "jump_to_main": "s rest,click to jump",
   "login": "Login",
   "test": "test"
 }

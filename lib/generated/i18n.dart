@@ -22,6 +22,7 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get app_title => "Liar";
+  String get jump_to_main => "s rest,click to jump";
   String get login => "Login";
   String get test => "test";
 }
@@ -40,6 +41,8 @@ class $zh_CN extends S {
   String get test => "测试";
   @override
   String get app_title => "欺诈者";
+  @override
+  String get jump_to_main => "秒剩余，点击跳过";
   @override
   String get login => "登陆";
 }

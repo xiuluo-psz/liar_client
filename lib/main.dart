@@ -1,19 +1,22 @@
 import 'dart:async';
 
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:liar/config/global_state.dart';
+import 'package:liar/constant/constants.dart';
 import 'package:liar/generated/i18n.dart';
-import 'package:liar/model/login_model.dart';
 import 'package:liar/model/user.dart';
 import 'package:liar/model/usual.dart';
 import 'package:liar/page/welcome/welcome.dart';
-import 'package:liar/service/login_service.dart';
 import 'package:redux/redux.dart';
 
 void main() {
   runZoned(() {
+    LogUtil.init(
+        isDebug: !bool.fromEnvironment("dart.vm.product"),
+        tag: Constants.LOG_TAG);
     runApp(MyApp());
   }, onError: (Object obj, StackTrace stack) {
     print(obj.toString());
@@ -52,8 +55,8 @@ class MyApp extends StatelessWidget {
             ],
             routes: {
               "/": (context) => WelcomeRoute(
-                    jump: () {
-                      Navigator.pushReplacementNamed(context, "name");
+                    jumpCallback: () {
+//                      Navigator.pushReplacementNamed(context, "name");
                     },
                   ),
               "name": (context) => MyHomePage(title: "titt")

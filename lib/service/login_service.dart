@@ -1,4 +1,4 @@
-import 'package:liar/constant/constants.dart';
+import 'package:liar/constant/api_constants.dart';
 import 'package:liar/model/net_result.dart';
 import 'package:liar/util/http_util.dart';
 
@@ -11,7 +11,7 @@ class LoginService {
       "password": password,
     };
     await HttpUtil.getInstance()
-        .post(Constants.API_LOGIN_LOGIN, params)
+        .post(ApiConstants.API_LOGIN_LOGIN, params)
         .then((response) {
       result = NetResult.fromJson(response.data);
     }).catchError((onError) {
