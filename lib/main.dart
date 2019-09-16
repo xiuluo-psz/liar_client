@@ -8,6 +8,7 @@ import 'package:liar/generated/i18n.dart';
 import 'package:liar/model/login_model.dart';
 import 'package:liar/model/user.dart';
 import 'package:liar/model/usual.dart';
+import 'package:liar/page/welcome/welcome.dart';
 import 'package:liar/service/login_service.dart';
 import 'package:redux/redux.dart';
 
@@ -49,7 +50,14 @@ class MyApp extends StatelessWidget {
               const Locale('en', ''),
               const Locale('zh', 'CN'),
             ],
-            home: MyHomePage(title: 'Flutter Demo Home Page'),
+            routes: {
+              "/": (context) => WelcomeRoute(
+                    jump: () {
+                      Navigator.pushReplacementNamed(context, "name");
+                    },
+                  ),
+              "name": (context) => MyHomePage(title: "titt")
+            },
           );
         },
       ),
@@ -76,14 +84,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     _counter = 0;
-    LoginService()
-        .login("admin@admin.com", "13344445555", "123456")
-        .then((result) {
-      if (result.code == "200") {
-        Login login = Login.fromJson(result.data);
-        print(login.token);
-      }
+    Future.delayed(Duration(seconds: 10), () {
+      print("============================");
     });
+
+//    LoginService()
+//        .login("admin@admin.com", "13344445555", "123456")
+//        .then((result) {
+//      if (result.code == "200") {
+//        Login login = Login.fromJson(result.data);
+//        print(login.token);
+//      }
+//    });
     super.initState();
   }
 

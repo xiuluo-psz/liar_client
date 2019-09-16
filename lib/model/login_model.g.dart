@@ -15,7 +15,7 @@ Login _$LoginFromJson(Map<String, dynamic> json) {
     password: json['password'] as String,
     image: json['image'] as String,
     version: json['version'] as int,
-    allowDay: json['allowDay'] as int,
+    accessToken: json['accessToken'] as int,
     token: json['token'] as String,
   );
 }
@@ -28,6 +28,6 @@ Map<String, dynamic> _$LoginToJson(Login instance) => <String, dynamic>{
       'password': instance.password,
       'image': instance.image,
       'version': instance.version,
-      'allowDay': instance.allowDay,
+      'accessToken': instance.accessToken,
       'token': instance.token,
     };

@@ -11,7 +11,7 @@ class Login {
   String password;
   String image;
   int version;
-  int allowDay;
+  int accessToken;
   String token;
 
   Login({
@@ -22,7 +22,7 @@ class Login {
     this.password,
     this.image,
     this.version,
-    this.allowDay,
+    this.accessToken,
     this.token,
   });
 

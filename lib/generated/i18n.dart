@@ -21,7 +21,7 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
-  String get app_title => "Common dev";
+  String get app_title => "Liar";
   String get login => "Login";
   String get test => "test";
 }
@@ -39,7 +39,7 @@ class $zh_CN extends S {
   @override
   String get test => "测试";
   @override
-  String get app_title => "普通";
+  String get app_title => "欺诈者";
   @override
   String get login => "登陆";
 }
