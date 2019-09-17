@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 class LoginRoute extends StatefulWidget {
-  static final String pathName = "/";
+  static final String routePath = "login";
 
   @override
   _LoginRouteState createState() => new _LoginRouteState();
 }
 
 class _LoginRouteState extends State<LoginRoute> {
+  GlobalKey _formKey = new GlobalKey<FormState>();
+
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _pwdController = new TextEditingController();
-  GlobalKey _formKey = new GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class _LoginRouteState extends State<LoginRoute> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                  autofocus: true,
+//                  autofocus: true,
                   controller: _nameController,
                   decoration: InputDecoration(
                       labelText: "用户名",

@@ -9,6 +9,8 @@ import 'package:liar/constant/constants.dart';
 import 'package:liar/generated/i18n.dart';
 import 'package:liar/model/user.dart';
 import 'package:liar/model/usual.dart';
+import 'package:liar/page/home/home.dart';
+import 'package:liar/page/login/login.dart';
 import 'package:liar/page/welcome/welcome.dart';
 import 'package:redux/redux.dart';
 
@@ -25,7 +27,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final store = Store<GlobalState>(
+  final Store<GlobalState> store = new Store<GlobalState>(
     appReducer,
     initialState: GlobalState(
       user: User.empty(),
@@ -54,84 +56,22 @@ class MyApp extends StatelessWidget {
               const Locale('zh', 'CN'),
             ],
             routes: {
-              "/": (context) => WelcomeRoute(
-                    jumpCallback: () {
-//                      Navigator.pushReplacementNamed(context, "name");
+              LoginRoute.routePath: (context) => LoginRoute(),
+              HomeRoute.routePath: (context) => HomeRoute(),
+              WelcomeRoute.routePath: (context) => WelcomeRoute(
+                    skipCallback: () {
+                      if (store.state.user.userId == null) {
+                        Navigator.of(context)
+                            .pushReplacementNamed(LoginRoute.routePath);
+                      } else {
+                        Navigator.of(context)
+                            .pushReplacementNamed(HomeRoute.routePath);
+                      }
                     },
                   ),
-              "name": (context) => MyHomePage(title: "titt")
             },
           );
         },
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    _counter++;
-  }
-
-  @override
-  void initState() {
-    _counter = 0;
-    Future.delayed(Duration(seconds: 10), () {
-      print("============================");
-    });
-
-//    LoginService()
-//        .login("admin@admin.com", "13344445555", "123456")
-//        .then((result) {
-//      if (result.code == "200") {
-//        Login login = Login.fromJson(result.data);
-//        print(login.token);
-//      }
-//    });
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print("build");
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-            Image.asset(
-              "assets/images/splash.jpg",
-              width: 300,
-              height: 300,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }

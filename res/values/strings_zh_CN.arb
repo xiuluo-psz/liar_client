@@ -1,6 +1,6 @@
 {
   "app_title": "欺诈者",
-  "jump_to_main": "秒剩余，点击跳过",
+  "skip_to_main": "跳过",
   "login": "登陆",
   "test": "测试"
 }

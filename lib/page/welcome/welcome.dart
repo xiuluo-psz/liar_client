@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:liar/generated/i18n.dart';
 
 class WelcomeRoute extends StatefulWidget {
-  final void Function() jumpCallback;
+  static final String routePath = "/";
 
-  WelcomeRoute({this.jumpCallback});
+  final void Function() skipCallback;
+
+  WelcomeRoute({Key key, this.skipCallback}) : super(key: key);
 
   @override
   _WelcomeRouteState createState() => _WelcomeRouteState();
@@ -18,7 +20,6 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
 
   @override
   void initState() {
-    LogUtil.v(widget.toString());
     _timer = new TimerUtil(mTotalTime: _second * 1000);
     _timer.setOnTimerTickCallback((int millisUntilFinished) {
       double _tick = millisUntilFinished / 1000;
@@ -26,7 +27,7 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
         _second = _tick.toInt();
       });
       if (_tick == 0) {
-        widget.jumpCallback();
+        widget.skipCallback();
       }
     });
     _timer.startCountDown();
@@ -40,8 +41,9 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
         children: <Widget>[
           Image.asset(
             "assets/images/AngelsAndDemons.jpg",
-            height: double.infinity,
-            width: double.infinity,
+            fit: BoxFit.fill,
+            height: ScreenUtil.getScreenH(context),
+            width: ScreenUtil.getScreenW(context),
           ),
           Positioned(
             top: ScreenUtil.getStatusBarH(context),
@@ -49,12 +51,15 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
             child: MaterialButton(
               color: Color(0x009E9E9E),
               child: Text(
-                '$_second${S.of(context).jump_to_main}',
-                style: TextStyle(fontSize: 18),
+                '${S.of(context).skip_to_main} $_second',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.grey[300],
+                ),
               ),
               onPressed: () {
                 _timer.cancel();
-                widget.jumpCallback();
+                widget.skipCallback();
               },
             ),
           ),
