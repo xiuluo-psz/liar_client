@@ -42,9 +42,9 @@ class $zh_CN extends S {
   @override
   String get test => "测试";
   @override
-  String get app_title => "欺诈者";
+  String get app_title => "言谎者";
   @override
-  String get login => "登陆";
+  String get login => "登录";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
