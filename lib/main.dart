@@ -16,8 +16,8 @@ import 'package:liar/page/welcome/welcome.dart';
 import 'package:redux/redux.dart';
 
 void main() {
-  runZoned(() {
-    SpUtil.getInstance();
+  runZoned(() async {
+    await SpUtil.getInstance();
     LogUtil.init(isDebug: Constants.IS_DEBUG, tag: Constants.LOG_TAG);
     runApp(LiarApp());
   }, onError: (Object obj, StackTrace stack) {
@@ -37,43 +37,46 @@ class LiarApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LogUtil.e(this.toString());
     return StoreProvider(
       store: store,
-      child: StoreBuilder<GlobalState>(
-        builder: (BuildContext context, Store<GlobalState> store) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            localizationsDelegates: [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              S.delegate,
-            ],
-            onGenerateTitle: (context) => S.of(context).app_title,
-            supportedLocales: [
-              const Locale('en', ''),
-              const Locale('zh', 'CN'),
-            ],
-            routes: {
-              LoginRoute.routePath: (context) => LoginRoute(),
-              HomeRoute.routePath: (context) => HomeRoute(),
-              WelcomeRoute.routePath: (context) => WelcomeRoute(
-                    skipCallback: () {
-                      if (store.state.user.userId == null) {
-                        Navigator.of(context)
-                            .pushReplacementNamed(LoginRoute.routePath);
-                      } else {
-                        Navigator.of(context)
-                            .pushReplacementNamed(HomeRoute.routePath);
-                      }
-                    },
-                  ),
-            },
-          );
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          S.delegate,
+        ],
+        onGenerateTitle: (context) => S.of(context).app_title,
+        supportedLocales: [
+          const Locale('en', ''),
+          const Locale('zh', 'CN'),
+        ],
+        routes: {
+          LoginRoute.routePath: (context) => LoginRoute(),
+          HomeRoute.routePath: (context) => HomeRoute(),
+          WelcomeRoute.routePath: (context) => WelcomeRoute(
+                skipCallback: () {
+                  if (SpUtil.getString("userId", defValue: null) == null) {
+                    Navigator.of(context)
+                        .pushReplacementNamed(LoginRoute.routePath);
+                  } else {
+                    Navigator.of(context)
+                        .pushReplacementNamed(HomeRoute.routePath);
+                  }
+                },
+              ),
         },
       ),
     );
   }
 }
+
+//      child: StoreBuilder<GlobalState>(
+//        builder: (BuildContext context, Store<GlobalState> store) {
+//          return Widget;
+//        },
+//      ),
