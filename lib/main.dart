@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:common_utils/common_utils.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -16,17 +17,16 @@ import 'package:redux/redux.dart';
 
 void main() {
   runZoned(() {
-    LogUtil.init(
-        isDebug: !bool.fromEnvironment("dart.vm.product"),
-        tag: Constants.LOG_TAG);
-    runApp(MyApp());
+    SpUtil.getInstance();
+    LogUtil.init(isDebug: Constants.IS_DEBUG, tag: Constants.LOG_TAG);
+    runApp(LiarApp());
   }, onError: (Object obj, StackTrace stack) {
     print(obj.toString());
     print(stack.toString());
   });
 }
 
-class MyApp extends StatelessWidget {
+class LiarApp extends StatelessWidget {
   final Store<GlobalState> store = new Store<GlobalState>(
     appReducer,
     initialState: GlobalState(
@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
       child: StoreBuilder<GlobalState>(
         builder: (BuildContext context, Store<GlobalState> store) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
