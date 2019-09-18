@@ -11,7 +11,10 @@ class WelcomeRoute extends StatefulWidget {
   WelcomeRoute({Key key, this.skipCallback}) : super(key: key);
 
   @override
-  _WelcomeRouteState createState() => _WelcomeRouteState();
+  _WelcomeRouteState createState() {
+    LogUtil.e(this.toString());
+    return _WelcomeRouteState();
+  }
 }
 
 class _WelcomeRouteState extends State<WelcomeRoute> {
@@ -35,12 +38,18 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
   }
 
   @override
+  void dispose() {
+    if (_timer.isActive()) _timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: Stack(
         children: <Widget>[
           Image.asset(
-            "assets/images/AngelsAndDemons.jpg",
+            "assets/images/welcome.png",
             fit: BoxFit.fill,
             height: ScreenUtil.getScreenH(context),
             width: ScreenUtil.getScreenW(context),
@@ -57,10 +66,7 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
                   color: Colors.grey[300],
                 ),
               ),
-              onPressed: () {
-                _timer.cancel();
-                widget.skipCallback();
-              },
+              onPressed: widget.skipCallback,
             ),
           ),
         ],
