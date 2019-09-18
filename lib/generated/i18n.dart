@@ -22,7 +22,12 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get app_title => "Liar";
+  String get email_phone => "email or phone";
+  String get forgot_pwd => "forgot password";
   String get login => "Login";
+  String get password => "password";
+  String get pwd_len => "more than 6 letters";
+  String get required => "required";
   String get skip_to_main => "skip";
   String get test => "test";
 }
@@ -38,13 +43,23 @@ class $zh_CN extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
+  String get forgot_pwd => "忘记密码";
+  @override
+  String get password => "密码";
+  @override
   String get skip_to_main => "跳过";
   @override
   String get test => "测试";
   @override
   String get app_title => "言谎者";
   @override
+  String get email_phone => "邮箱或手机号";
+  @override
+  String get pwd_len => "不能少于6位";
+  @override
   String get login => "登录";
+  @override
+  String get required => "不能为空";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {

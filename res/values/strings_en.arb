@@ -2,5 +2,10 @@
   "app_title": "Liar",
   "skip_to_main": "skip",
   "login": "Login",
+  "email_phone": "email or phone",
+  "password": "password",
+  "required": "required",
+  "pwd_len": "more than 6 letters",
+  "forgot_pwd": "forgot password",
   "test": "test"
 }

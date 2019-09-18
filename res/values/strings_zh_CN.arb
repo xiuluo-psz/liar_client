@@ -2,5 +2,10 @@
   "app_title": "言谎者",
   "skip_to_main": "跳过",
   "login": "登录",
+  "email_phone": "邮箱或手机号",
+  "password": "密码",
+  "required": "不能为空",
+  "pwd_len": "不能少于6位",
+  "forgot_pwd": "忘记密码",
   "test": "测试"
 }
