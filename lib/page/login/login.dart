@@ -1,74 +1,125 @@
+import 'package:common_utils/common_utils.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:liar/generated/i18n.dart';
 
 class LoginRoute extends StatefulWidget {
   static final String routePath = "login";
 
+  LoginRoute({Key key}) : super(key: key);
+
   @override
-  _LoginRouteState createState() => new _LoginRouteState();
+  _LoginRouteState createState() {
+    LogUtil.e(this.toString());
+    return _LoginRouteState();
+  }
 }
 
 class _LoginRouteState extends State<LoginRoute> {
   GlobalKey _formKey = new GlobalKey<FormState>();
 
-  TextEditingController _nameController = new TextEditingController();
+  TextEditingController _keyController = new TextEditingController();
   TextEditingController _pwdController = new TextEditingController();
+
+  bool _obscure = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    S i18n = S.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Login"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-        child: Form(
-          key: _formKey, //设置globalKey，用于后面获取FormState
-          autovalidate: true, //开启自动校验
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-//                  autofocus: true,
-                  controller: _nameController,
-                  decoration: InputDecoration(
-                      labelText: "用户名",
-                      hintText: "手机号或邮箱",
-                      icon: Icon(Icons.person)),
-                  // 校验用户名
-                  validator: (v) {
-                    return v.trim().length > 0 ? null : "用户名不能为空";
-                  }),
-              TextFormField(
-                  controller: _pwdController,
-                  decoration: InputDecoration(
-                      labelText: "密码",
-                      hintText: "您的登录密码",
-                      icon: Icon(Icons.lock)),
-                  obscureText: true,
-                  //校验密码
-                  validator: (v) {
-                    return v.trim().length > 5 ? null : "密码不能少于6位";
-                  }),
-              // 登录按钮
-              Padding(
-                padding: const EdgeInsets.only(top: 28.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: RaisedButton(
-                        padding: EdgeInsets.all(15.0),
-                        child: Text("登录"),
-                        color: Theme.of(context).primaryColor,
-                        textColor: Colors.white,
+      body: Container(
+//        color: Colors.blueGrey,
+        padding: EdgeInsets.only(top: ScreenUtil.getScreenH(context) / 6),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 25.0),
+          child: Form(
+            key: _formKey,
+            autovalidate: true,
+            child: Column(
+              children: <Widget>[
+                ClipOval(
+                  child: Image.asset(
+                    "assets/images/liar.jpg",
+                    height: 120.0,
+                    width: 120.0,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                ),
+                TextFormField(
+                    controller: _keyController,
+                    decoration: InputDecoration(
+                      labelText: i18n.email_phone,
+                      icon: Icon(Icons.person),
+                    ),
+                    validator: (value) {
+                      return value.trim().length > 0 ? null : i18n.required;
+                    }),
+                TextFormField(
+                    controller: _pwdController,
+                    obscureText: _obscure,
+                    decoration: InputDecoration(
+                      labelText: i18n.password,
+                      icon: Icon(Icons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscure ? Icons.visibility_off : Icons.visibility,
+                          color: Colors.black,
+                        ),
                         onPressed: () {
-                          if ((_formKey.currentState as FormState)
-                              .validate()) {}
+                          setState(() {
+                            _obscure = !_obscure;
+                          });
                         },
                       ),
                     ),
+                    validator: (value) {
+                      return value.trim().length > 5 ? null : i18n.pwd_len;
+                    }),
+                // 登录按钮
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 3.0),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    InkWell(
+                      child: Text(
+                        i18n.forgot_pwd,
+                        style: TextStyle(color: Theme.of(context).primaryColor),
+                      ),
+                      onTap: () {
+                        print('---------');
+                      },
+                    ),
                   ],
                 ),
-              )
-            ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                ),
+                Container(
+                  width: double.infinity,
+                  child: RaisedButton(
+                    child: Text(
+                      i18n.login,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    color: Theme.of(context).primaryColor,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      if ((_formKey.currentState as FormState).validate()) {}
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
