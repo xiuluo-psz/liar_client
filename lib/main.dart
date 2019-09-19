@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:liar/config/global_state.dart';
 import 'package:liar/constant/constants.dart';
+import 'package:liar/constant/sp_constants.dart';
 import 'package:liar/generated/i18n.dart';
 import 'package:liar/model/user.dart';
 import 'package:liar/model/usual.dart';
@@ -27,6 +28,8 @@ void main() {
 }
 
 class LiarApp extends StatelessWidget {
+  LiarApp({Key key}) : super(key: key);
+
   final Store<GlobalState> store = new Store<GlobalState>(
     appReducer,
     initialState: GlobalState(
@@ -60,7 +63,8 @@ class LiarApp extends StatelessWidget {
           HomeRoute.routePath: (context) => HomeRoute(),
           WelcomeRoute.routePath: (context) => WelcomeRoute(
                 skipCallback: () {
-                  if (SpUtil.getString("userId", defValue: null) == null) {
+                  if (SpUtil.getString(SpConstants.USER_ID, defValue: null) ==
+                      null) {
                     Navigator.of(context)
                         .pushReplacementNamed(LoginRoute.routePath);
                   } else {
