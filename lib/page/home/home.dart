@@ -2,7 +2,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 
 class HomeRoute extends StatefulWidget {
-  static final String routePath = "home";
+  static final String routePath = "Home";
 
   @override
   _HomeRouteState createState() {

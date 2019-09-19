@@ -27,6 +27,7 @@ class S implements WidgetsLocalizations {
   String get login => "Login";
   String get password => "password";
   String get pwd_len => "more than 6 letters";
+  String get register => "register";
   String get required => "required";
   String get skip_to_main => "skip";
   String get test => "test";
@@ -51,7 +52,7 @@ class $zh_CN extends S {
   @override
   String get test => "测试";
   @override
-  String get app_title => "言谎者";
+  String get app_title => "言谎人";
   @override
   String get email_phone => "邮箱或手机号";
   @override
@@ -60,6 +61,8 @@ class $zh_CN extends S {
   String get login => "登录";
   @override
   String get required => "不能为空";
+  @override
+  String get register => "注册";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {

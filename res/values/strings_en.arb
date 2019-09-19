@@ -6,6 +6,7 @@
   "password": "password",
   "required": "required",
   "pwd_len": "more than 6 letters",
+  "register": "register",
   "forgot_pwd": "forgot password",
   "test": "test"
 }
