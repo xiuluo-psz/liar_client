@@ -7,12 +7,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:liar/config/global_state.dart';
 import 'package:liar/constant/constants.dart';
-import 'package:liar/constant/sp_constants.dart';
 import 'package:liar/generated/i18n.dart';
 import 'package:liar/model/user.dart';
 import 'package:liar/model/usual.dart';
-import 'package:liar/page/home/home.dart';
-import 'package:liar/page/login/login.dart';
 import 'package:liar/page/welcome/welcome.dart';
 import 'package:redux/redux.dart';
 
@@ -45,6 +42,7 @@ class LiarApp extends StatelessWidget {
       store: store,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        onGenerateTitle: (context) => S.of(context).app_title,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
@@ -53,34 +51,15 @@ class LiarApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           S.delegate,
         ],
-        onGenerateTitle: (context) => S.of(context).app_title,
         supportedLocales: [
           const Locale('en', ''),
           const Locale('zh', 'CN'),
         ],
+        initialRoute: WelcomeRoute.routePath,
         routes: {
-          LoginRoute.routePath: (context) => LoginRoute(),
-          HomeRoute.routePath: (context) => HomeRoute(),
-          WelcomeRoute.routePath: (context) => WelcomeRoute(
-                skipCallback: () {
-                  if (SpUtil.getString(SpConstants.USER_ID, defValue: null) ==
-                      null) {
-                    Navigator.of(context)
-                        .pushReplacementNamed(LoginRoute.routePath);
-                  } else {
-                    Navigator.of(context)
-                        .pushReplacementNamed(HomeRoute.routePath);
-                  }
-                },
-              ),
+          WelcomeRoute.routePath: (context) => WelcomeRoute(),
         },
       ),
     );
   }
 }
-
-//      child: StoreBuilder<GlobalState>(
-//        builder: (BuildContext context, Store<GlobalState> store) {
-//          return Widget;
-//        },
-//      ),
