@@ -1,14 +1,16 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:liar/constant/sp_constants.dart';
 import 'package:liar/generated/i18n.dart';
+import 'package:liar/page/home/home.dart';
+import 'package:liar/page/login/login.dart';
+import 'package:liar/util/route_animation_util.dart';
 
 class WelcomeRoute extends StatefulWidget {
-  static final String routePath = "/";
+  static final String routePath = "Welcome";
 
-  final void Function() skipCallback;
-
-  WelcomeRoute({Key key, this.skipCallback}) : super(key: key);
+  WelcomeRoute({Key key}) : super(key: key);
 
   @override
   _WelcomeRouteState createState() {
@@ -21,6 +23,16 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
   int _second = 5;
   TimerUtil _timer;
 
+  void _skip() {
+    if (SpUtil.getString(SpConstants.USER_ID, defValue: null) == null) {
+      Navigator.of(context).pushReplacement(
+          RouteAnimationUtil.fade(LoginRoute(), Duration(milliseconds: 2000)));
+    } else {
+      Navigator.of(context).pushReplacement(
+          RouteAnimationUtil.slide(HomeRoute(), Duration(milliseconds: 2000)));
+    }
+  }
+
   @override
   void initState() {
     _timer = new TimerUtil(mTotalTime: _second * 1000);
@@ -30,7 +42,7 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
         _second = _tick.toInt();
       });
       if (_tick == 0) {
-        widget.skipCallback();
+        _skip();
       }
     });
     _timer.startCountDown();
@@ -66,7 +78,7 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
                   color: Colors.grey[300],
                 ),
               ),
-              onPressed: widget.skipCallback,
+              onPressed: _skip,
             ),
           ),
         ],
