@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:liar/config/global_state.dart';
 import 'package:liar/constant/constants.dart';
+import 'package:liar/constant/sp_constants.dart';
 import 'package:liar/generated/i18n.dart';
 import 'package:liar/model/user.dart';
 import 'package:liar/model/usual.dart';
@@ -31,15 +32,16 @@ class LiarApp extends StatelessWidget {
   final Store<GlobalState> store = new Store<GlobalState>(
     appReducer,
     initialState: GlobalState(
-      user: User.empty(),
+      user: SpUtil.getObj(SpConstants.USER_INFO, (user) => User.fromJson(user),
+          defValue: User.empty()),
       usual: Usual(isAd: true),
     ),
   );
 
   @override
   Widget build(BuildContext context) {
-    LogUtil.e(this.toString());
-    return StoreProvider(
+    LogUtil.v(this.toString());
+    return StoreProvider<GlobalState>(
       store: store,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

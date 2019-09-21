@@ -10,7 +10,7 @@ class User {
   String email;
   String password;
   String image;
-  String version;
+  int version;
 
   User({
     this.userId,

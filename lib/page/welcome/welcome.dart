@@ -14,7 +14,7 @@ class WelcomeRoute extends StatefulWidget {
 
   @override
   _WelcomeRouteState createState() {
-    LogUtil.e(this.toString());
+    LogUtil.v(this.toString());
     return _WelcomeRouteState();
   }
 }
@@ -78,7 +78,10 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
                   color: Colors.grey[300],
                 ),
               ),
-              onPressed: _skip,
+              onPressed: () {
+                _timer.cancel();
+                _skip();
+              },
             ),
           ),
         ],

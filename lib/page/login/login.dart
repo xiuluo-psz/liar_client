@@ -1,12 +1,18 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:liar/config/global_state.dart';
 import 'package:liar/constant/constants.dart';
+import 'package:liar/constant/sp_constants.dart';
 import 'package:liar/generated/i18n.dart';
 import 'package:liar/model/login_model.dart';
+import 'package:liar/model/user.dart';
 import 'package:liar/page/home/home.dart';
+import 'package:liar/redux/user_redux.dart';
 import 'package:liar/service/login_service.dart';
 import 'package:liar/util/route_animation_util.dart';
+import 'package:redux/redux.dart';
 
 class LoginRoute extends StatefulWidget {
   static final String routePath = "Login";
@@ -15,7 +21,7 @@ class LoginRoute extends StatefulWidget {
 
   @override
   _LoginRouteState createState() {
-    LogUtil.e(this.toString());
+    LogUtil.v(this.toString());
     return _LoginRouteState();
   }
 }
@@ -39,8 +45,22 @@ class _LoginRouteState extends State<LoginRoute> {
     new LoginService().login(email, phone, pwd).then((result) {
       if (result.code == Constants.SUCCESS_CODE) {
         LoginModel model = LoginModel.fromJson(result.data);
+        int accessToken = model.accessToken;
+        int milliseconds = DateTime.now().millisecondsSinceEpoch;
+        int accessTime = milliseconds + accessToken * 24 * 60 * 60 * 1000;
+        SpUtil.putInt(SpConstants.ACCESS_TIME, accessTime);
+        SpUtil.putString(SpConstants.TOKEN, model.token);
+        SpUtil.putString(SpConstants.USER_ID, model.userId);
+
+        User user = User.fromJson(result.data);
+        SpUtil.putObject(SpConstants.USER_INFO, user);
+        Store<GlobalState> store = StoreProvider.of(context);
+        store.dispatch(RefreshUserAction(user));
         Navigator.of(context).pushReplacement(RouteAnimationUtil.slide(
             HomeRoute(), Duration(milliseconds: 2000)));
+      } else {
+        LogUtil.e(result.msg);
+        //TODO some notice
       }
     });
   }
@@ -158,7 +178,7 @@ class _LoginRouteState extends State<LoginRoute> {
                   child: RaisedButton(
                     child: Text(
                       i18n.login,
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18.0),
                     ),
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,

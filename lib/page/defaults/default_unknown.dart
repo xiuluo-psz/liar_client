@@ -6,7 +6,7 @@ class DefaultUnknown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LogUtil.e(this.toString());
+    LogUtil.v(this.toString());
     return Scaffold(
       body: Container(
         child: Center(
