@@ -2,6 +2,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:liar/constant/sp_constants.dart';
+import 'package:liar/constant/static_constants.dart';
 import 'package:liar/generated/i18n.dart';
 import 'package:liar/page/home/home.dart';
 import 'package:liar/page/login/login.dart';
@@ -60,11 +61,16 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
     return Container(
       child: Stack(
         children: <Widget>[
-          Image.asset(
-            "assets/images/welcome.png",
+          FadeInImage.assetNetwork(
+            placeholder: "assets/images/welcome.png",
+            image: StaticConstants.IMG_WELCOME,
             fit: BoxFit.fill,
             height: ScreenUtil.getScreenH(context),
             width: ScreenUtil.getScreenW(context),
+            fadeOutDuration: Duration(milliseconds: 500),
+            fadeOutCurve: Curves.elasticIn,
+            fadeInDuration: Duration(milliseconds: 500),
+            fadeInCurve: Curves.elasticOut,
           ),
           Positioned(
             top: ScreenUtil.getStatusBarH(context),

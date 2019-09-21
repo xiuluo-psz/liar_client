@@ -1,7 +1,7 @@
 class SpConstants {
-  static const String SP_PREFIX = "Liar_";
-  static const String USER_INFO = SP_PREFIX + "userInfo";
-  static const String USER_ID = SP_PREFIX + "userId";
-  static const String TOKEN = SP_PREFIX + "token";
-  static const String ACCESS_TIME = SP_PREFIX + "accessTime";
+  static const String _sp_prefix = "Liar_";
+  static const String USER_INFO = _sp_prefix + "userInfo";
+  static const String USER_ID = _sp_prefix + "userId";
+  static const String TOKEN = _sp_prefix + "token";
+  static const String ACCESS_TIME = _sp_prefix + "accessTime";
 }
