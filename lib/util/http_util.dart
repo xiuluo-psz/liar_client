@@ -1,6 +1,7 @@
-import 'package:liar/config/config.dart';
-import 'package:liar/http/default_interceptor.dart';
 import 'package:dio/dio.dart';
+import 'package:liar/config/config.dart';
+import 'package:liar/constant/constants.dart';
+import 'package:liar/http/default_interceptor.dart';
 
 class HttpUtil {
   Dio _client;
@@ -12,7 +13,7 @@ class HttpUtil {
     return _instance;
   }
 
-  bool _isDebug = !bool.fromEnvironment("dart.vm.product");
+  bool _isDebug = Constants.IS_DEBUG;
 
   HttpUtil._internel() {
     if (null == _client) {
@@ -34,7 +35,7 @@ class HttpUtil {
     return _instance;
   }
 
-  removeLastInterceptor() {
+  Interceptor removeLastInterceptor() {
     return _client.interceptors.removeLast();
   }
 

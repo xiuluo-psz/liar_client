@@ -1,7 +1,12 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:liar/constant/constants.dart';
 import 'package:liar/generated/i18n.dart';
+import 'package:liar/model/login_model.dart';
+import 'package:liar/page/home/home.dart';
+import 'package:liar/service/login_service.dart';
+import 'package:liar/util/route_animation_util.dart';
 
 class LoginRoute extends StatefulWidget {
   static final String routePath = "Login";
@@ -23,8 +28,27 @@ class _LoginRouteState extends State<LoginRoute> {
 
   bool _obscure = true;
 
+  void _login(String key, String pwd) {
+    String email;
+    String phone;
+    if (RegexUtil.isEmail(key)) {
+      email = key;
+    } else {
+      phone = key;
+    }
+    new LoginService().login(email, phone, pwd).then((result) {
+      if (result.code == Constants.SUCCESS_CODE) {
+        LoginModel model = LoginModel.fromJson(result.data);
+        Navigator.of(context).pushReplacement(RouteAnimationUtil.slide(
+            HomeRoute(), Duration(milliseconds: 2000)));
+      }
+    });
+  }
+
   @override
   void initState() {
+    _keyController.text = "admin@admin.com";
+    _pwdController.text = "123456";
     super.initState();
   }
 
@@ -140,7 +164,7 @@ class _LoginRouteState extends State<LoginRoute> {
                     textColor: Colors.white,
                     onPressed: () {
                       if ((_formKey.currentState as FormState).validate()) {
-                        //TODO login
+                        _login(_keyController.text, _pwdController.text);
                       }
                     },
                   ),

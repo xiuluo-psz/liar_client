@@ -10,6 +10,7 @@ import 'package:liar/constant/constants.dart';
 import 'package:liar/generated/i18n.dart';
 import 'package:liar/model/user.dart';
 import 'package:liar/model/usual.dart';
+import 'package:liar/page/defaults/default_unknown.dart';
 import 'package:liar/page/welcome/welcome.dart';
 import 'package:redux/redux.dart';
 
@@ -58,6 +59,7 @@ class LiarApp extends StatelessWidget {
         initialRoute: WelcomeRoute.routePath,
         routes: {
           WelcomeRoute.routePath: (context) => WelcomeRoute(),
+          DefaultUnknown.routePath: (context) => DefaultUnknown(),
         },
       ),
     );
