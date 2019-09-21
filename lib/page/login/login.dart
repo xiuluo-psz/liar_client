@@ -87,7 +87,7 @@ class _LoginRouteState extends State<LoginRoute> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background.jpg"),
+            image: AssetImage("assets/images/background2.jpg"),
             fit: BoxFit.fill,
           ),
         ),
