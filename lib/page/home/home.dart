@@ -31,19 +31,21 @@ class _HomeRouteState extends State<HomeRoute> {
     return Scaffold(
       body: ListView(
         children: <Widget>[
-          Text(widget.toString()),
-          Text(user.toJson().toString()),
-          Text(SpUtil.getString(SpConstants.USER_ID)),
-          Text(SpUtil.getString(SpConstants.TOKEN)),
-          Text(SpUtil.getInt(SpConstants.ACCESS_TIME).toString()),
+          Text('widget name: ${widget.toString()}'),
+          Text('userinfo: ${user.toJson().toString()}'),
+          Text('userId: ${SpUtil.getString(SpConstants.USER_ID)}'),
+          Text('token: ${SpUtil.getString(SpConstants.TOKEN)}'),
+          Text('accessTime: ${SpUtil.getInt(SpConstants.ACCESS_TIME).toString()}'),
           RaisedButton(
             child: Text('clear'),
             onPressed: SpUtil.clear,
           ),
           RaisedButton(
             child: Text('token'),
-            onPressed: (){
-              HttpUtil.getInstance().post(ApiConstants.API_LOGIN_LOGDEL,{"userId":"147bc419-dcd7-11e9-96b7-005056c00001"}).then((response){
+            onPressed: () {
+              HttpUtil.getInstance().post(ApiConstants.API_LOGIN_LOGDEL, {
+                "userId": SpUtil.getString(SpConstants.USER_ID, defValue: null)
+              }).then((response) {
                 print('==============================================');
                 var result = NetResult.fromJson(response.data);
                 print(result.toJson());
