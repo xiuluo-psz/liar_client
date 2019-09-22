@@ -4,4 +4,5 @@ class SpConstants {
   static const String USER_ID = _sp_prefix + "userId";
   static const String TOKEN = _sp_prefix + "token";
   static const String ACCESS_TIME = _sp_prefix + "accessTime";
+  static const String REMEMBER_PWD = _sp_prefix + "remPwd";
 }

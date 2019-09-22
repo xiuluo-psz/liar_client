@@ -53,6 +53,7 @@ class _LoginRouteState extends State<LoginRoute> {
         SpUtil.putString(SpConstants.USER_ID, model.userId);
 
         User user = User.fromJson(result.data);
+        user.password = pwd;
         SpUtil.putObject(SpConstants.USER_INFO, user);
         Store<GlobalState> store = StoreProvider.of(context);
         store.dispatch(RefreshUserAction(user));

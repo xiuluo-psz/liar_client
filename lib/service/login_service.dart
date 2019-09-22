@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:liar/constant/api_constants.dart';
 import 'package:liar/model/login_model.dart';
@@ -6,6 +9,7 @@ import 'package:liar/util/http_util.dart';
 
 class LoginService {
   Future<NetResult> login(String email, String phone, String password) async {
+    password = md5.convert(utf8.encode(password)).toString();
     NetResult result = NetResult.empty();
     Map<String, dynamic> params =
         new LoginModel(email: email, phoneNumber: phone, password: password)
