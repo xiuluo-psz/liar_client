@@ -15,7 +15,7 @@ LoginModel _$LoginModeFromJson(Map<String, dynamic> json) {
     password: json['password'] as String,
     image: json['image'] as String,
     version: json['version'] as int,
-    accessToken: json['accessToken'] as int,
+    accessTime: json['accessTime'] as int,
     token: json['token'] as String,
   );
 }
@@ -28,6 +28,6 @@ Map<String, dynamic> _$LoginModeToJson(LoginModel instance) => <String, dynamic>
       'password': instance.password,
       'image': instance.image,
       'version': instance.version,
-      'accessToken': instance.accessToken,
+      'accessTime': instance.accessTime,
       'token': instance.token,
     };

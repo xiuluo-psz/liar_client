@@ -45,10 +45,7 @@ class _LoginRouteState extends State<LoginRoute> {
     new LoginService().login(email, phone, pwd).then((result) {
       if (result.code == Constants.SUCCESS_CODE) {
         LoginModel model = LoginModel.fromJson(result.data);
-        int accessToken = model.accessToken;
-        int milliseconds = DateTime.now().millisecondsSinceEpoch;
-        int accessTime = milliseconds + accessToken * 24 * 60 * 60 * 1000;
-        SpUtil.putInt(SpConstants.ACCESS_TIME, accessTime);
+        SpUtil.putInt(SpConstants.ACCESS_TIME, model.accessTime);
         SpUtil.putString(SpConstants.TOKEN, model.token);
         SpUtil.putString(SpConstants.USER_ID, model.userId);
 

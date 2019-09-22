@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:liar/config/config.dart';
 import 'package:liar/constant/constants.dart';
 import 'package:liar/http/default_interceptor.dart';
+import 'package:liar/http/token_interceptor.dart';
 
 class HttpUtil {
   Dio _client;
@@ -23,6 +24,7 @@ class HttpUtil {
       options.connectTimeout = Config.CONNECT_TIMEOUT;
       _client = new Dio(options);
       _client.interceptors.add(DefaultInterceptor(_isDebug));
+      _client.interceptors.add(TokenInterceptor());
       _client.interceptors.add(LogInterceptor(
         requestBody: _isDebug,
         responseBody: _isDebug,
@@ -45,6 +47,14 @@ class HttpUtil {
 
   void clearInterceptor() {
     _client.interceptors.clear();
+  }
+
+  void lock() {
+    _client.lock();
+  }
+
+  void unlock() {
+    _client.unlock();
   }
 
   Future<Response<Map<String, dynamic>>> get(String path,

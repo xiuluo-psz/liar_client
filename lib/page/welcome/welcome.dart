@@ -25,12 +25,14 @@ class _WelcomeRouteState extends State<WelcomeRoute> {
   TimerUtil _timer;
 
   void _skip() {
-    if (SpUtil.getString(SpConstants.USER_ID, defValue: null) == null) {
-      Navigator.of(context).pushReplacement(
-          RouteAnimationUtil.fade(LoginRoute(), Duration(milliseconds: 2000)));
-    } else {
+    int phase = SpUtil.getInt(SpConstants.ACCESS_TIME, defValue: 0) -
+        DateTime.now().millisecondsSinceEpoch;
+    if (phase > 0) {
       Navigator.of(context).pushReplacement(
           RouteAnimationUtil.slide(HomeRoute(), Duration(milliseconds: 2000)));
+    } else {
+      Navigator.of(context).pushReplacement(
+          RouteAnimationUtil.fade(LoginRoute(), Duration(milliseconds: 2000)));
     }
   }
 

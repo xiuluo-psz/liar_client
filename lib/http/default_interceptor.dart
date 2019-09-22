@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flustars/flustars.dart';
+import 'package:liar/constant/sp_constants.dart';
 
 class DefaultInterceptor extends Interceptor {
   bool isDebug;
@@ -7,6 +9,8 @@ class DefaultInterceptor extends Interceptor {
 
   @override
   onRequest(RequestOptions options) {
+    options.headers["Authorization"] =
+        SpUtil.getString(SpConstants.TOKEN, defValue: null);
     return options;
   }
 

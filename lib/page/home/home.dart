@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:liar/config/config.dart';
 import 'package:liar/config/global_state.dart';
+import 'package:liar/constant/api_constants.dart';
 import 'package:liar/constant/sp_constants.dart';
+import 'package:liar/model/net_result.dart';
 import 'package:liar/model/user.dart';
+import 'package:liar/util/http_util.dart';
 import 'package:redux/redux.dart';
 
 class HomeRoute extends StatefulWidget {
@@ -36,6 +39,17 @@ class _HomeRouteState extends State<HomeRoute> {
           RaisedButton(
             child: Text('clear'),
             onPressed: SpUtil.clear,
+          ),
+          RaisedButton(
+            child: Text('token'),
+            onPressed: (){
+              HttpUtil.getInstance().post(ApiConstants.API_LOGIN_LOGDEL,{"userId":"147bc419-dcd7-11e9-96b7-005056c00001"}).then((response){
+                print('==============================================');
+                var result = NetResult.fromJson(response.data);
+                print(result.toJson());
+                print('==============================================');
+              });
+            },
           ),
           FadeInImage.assetNetwork(
             placeholder: "assets/images/welcome.png",

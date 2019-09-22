@@ -11,7 +11,7 @@ class LoginModel {
   String password;
   String image;
   int version;
-  int accessToken;
+  int accessTime;
   String token;
 
   LoginModel({
@@ -22,7 +22,7 @@ class LoginModel {
     this.password,
     this.image,
     this.version,
-    this.accessToken,
+    this.accessTime,
     this.token,
   });
 
