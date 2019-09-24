@@ -17,7 +17,7 @@ class TokenInterceptor extends Interceptor {
       return options;
     }
 
-    //在更换token时间内，1天以内
+    //在更换token时间内--1天以内
     int phase = accessTime - DateTime.now().millisecondsSinceEpoch;
     if (phase > 0 && phase < Constants.ONE_DAY) {
       HttpUtil.getInstance().lock();
@@ -47,10 +47,5 @@ class TokenInterceptor extends Interceptor {
     }
 
     return options;
-  }
-
-  @override
-  onResponse(Response response) {
-    return response;
   }
 }
